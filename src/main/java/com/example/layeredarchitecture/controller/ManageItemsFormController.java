@@ -257,20 +257,6 @@ public class ManageItemsFormController {
         }
         return "I00-001";
 
-      /*  if (tblItems.getItems().isEmpty()) {
-            return "I00-001";
-        } else {
-            String id = getLastItemId();
-            int newItemId = Integer.parseInt(id.replace("I", "")) + 1;
-            return String.format("I00-%03d", newItemId);
-        }*/
 
     }
-
-   /* private String getLastItemId() {
-        List<ItemTM> tempItemList = new ArrayList<>(tblItems.getItems());
-        Collections.sort(tempItemList);
-        return tempItemList.get(tempItemList.size() - 1).getCode();
-
-    }*/
 }
