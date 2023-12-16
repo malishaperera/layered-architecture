@@ -76,9 +76,9 @@ public class ManageCustomersFormController {
            for (CustomerDTO customerDTO :allCustomer){
                tblCustomers.getItems().add(
                        new CustomerTM(
-                       customerDTO.getId(),
-                       customerDTO.getName(),
-                       customerDTO.getAddress()));
+                               customerDTO.getId(),
+                               customerDTO.getName(),
+                               customerDTO.getAddress()));
            }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
