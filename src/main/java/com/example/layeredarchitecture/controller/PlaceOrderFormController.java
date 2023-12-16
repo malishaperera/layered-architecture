@@ -226,6 +226,7 @@ public class PlaceOrderFormController {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
     }
 
     private void loadAllItemCodes() {
