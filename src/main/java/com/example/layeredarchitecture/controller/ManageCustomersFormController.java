@@ -1,5 +1,6 @@
 package com.example.layeredarchitecture.controller;
 
+import com.example.layeredarchitecture.dao.CustomerDAO;
 import com.example.layeredarchitecture.dao.CustomerDaoImpl;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
@@ -38,6 +39,9 @@ public class ManageCustomersFormController {
     public TableView<CustomerTM> tblCustomers;
     public JFXButton btnAddNewCustomer;
 
+
+    CustomerDAO customerDao = new CustomerDaoImpl();
+
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
         tblCustomers.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -69,8 +73,6 @@ public class ManageCustomersFormController {
         tblCustomers.getItems().clear();
        // Get all customers
        try {
-
-           CustomerDaoImpl customerDao = new CustomerDaoImpl();
            ArrayList<CustomerDTO> allCustomer = customerDao.getAllCustomer();
 
            for (CustomerDTO customerDTO :allCustomer){
@@ -147,8 +149,6 @@ public class ManageCustomersFormController {
                 if (existCustomer(id)) {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
-
-                CustomerDaoImpl customerDao = new CustomerDaoImpl();
               boolean isSave = customerDao.saveCustomer(new  CustomerDTO(id,name,address));
               if (isSave){
                   tblCustomers.getItems().add(new CustomerTM(id, name, address));
@@ -187,7 +187,6 @@ public class ManageCustomersFormController {
 
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-        CustomerDaoImpl customerDao = new CustomerDaoImpl();
         return  customerDao.existCustomer(id);
     }
 
@@ -215,7 +214,6 @@ public class ManageCustomersFormController {
 
     private String generateNewId() {
         try {
-            CustomerDaoImpl customerDao = new CustomerDaoImpl();
             ResultSet resultSet= customerDao.genarateID();
 
             if (resultSet.next()) {
@@ -240,7 +238,6 @@ public class ManageCustomersFormController {
             return String.format("C00-%03d", newCustomerId);
         }
     }
-
     private String getLastCustomerId() {
         List<CustomerTM> tempCustomersList = new ArrayList<>(tblCustomers.getItems());
         Collections.sort(tempCustomersList);
