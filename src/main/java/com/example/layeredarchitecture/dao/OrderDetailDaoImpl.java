@@ -3,10 +3,7 @@ package com.example.layeredarchitecture.dao;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
+import java.sql.*;
 
 public class OrderDetailDaoImpl implements OrderDetailDAO{
 
@@ -21,4 +18,5 @@ public class OrderDetailDaoImpl implements OrderDetailDAO{
 
         return pstm.executeUpdate() >0;
     }
+
 }

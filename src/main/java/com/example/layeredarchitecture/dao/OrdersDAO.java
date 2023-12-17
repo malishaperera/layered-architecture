@@ -8,4 +8,6 @@ public interface OrdersDAO {
 
     boolean saveOder(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException;
 
+    String generateNextOrderId() throws SQLException, ClassNotFoundException;
+
 }

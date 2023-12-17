@@ -87,7 +87,6 @@ public class ManageCustomersFormController {
         } catch (ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-
     }
 
     private void initUI() {
@@ -145,11 +144,14 @@ public class ManageCustomersFormController {
 
         if (btnSave.getText().equalsIgnoreCase("save")) {
             /*Save Customer*/
+
             try {
                 if (existCustomer(id)) {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
+
               boolean isSave = customerDao.saveCustomer(new  CustomerDTO(id,name,address));
+
               if (isSave){
                   tblCustomers.getItems().add(new CustomerTM(id, name, address));
               }
@@ -167,21 +169,22 @@ public class ManageCustomersFormController {
                     new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
                 }
 
-                CustomerDTO dto = new CustomerDTO(id,name,address);
-                CustomerDaoImpl dao = new CustomerDaoImpl();
-                dao.updateCustomer(dto);
+                boolean isUpdated = customerDao.updateCustomer(new CustomerDTO(id, name, address));
+
+                if (isUpdated){
+                    CustomerTM selectedCustomer = tblCustomers.getSelectionModel().getSelectedItem();
+                    selectedCustomer.setName(name);
+                    selectedCustomer.setAddress(address);
+                    tblCustomers.refresh();
+                }
 
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to update the customer " + id + e.getMessage()).show();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-
-            CustomerTM selectedCustomer = tblCustomers.getSelectionModel().getSelectedItem();
-            selectedCustomer.setName(name);
-            selectedCustomer.setAddress(address);
-            tblCustomers.refresh();
         }
+
         btnAddNewCustomer.fire();
     }
 
@@ -230,6 +233,7 @@ public class ManageCustomersFormController {
             return String.format("C00-%03d", newCustomerId);
         }
     }
+
     private String getLastCustomerId() {
         List<CustomerTM> tempCustomersList = new ArrayList<>(tblCustomers.getItems());
         Collections.sort(tempCustomersList);

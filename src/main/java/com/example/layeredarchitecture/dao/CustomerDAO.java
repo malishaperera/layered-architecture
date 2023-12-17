@@ -12,12 +12,14 @@ public interface CustomerDAO {
 
     boolean saveCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException ;
 
-     void updateCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException ;
+     boolean updateCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException ;
 
     void deleteCustomer(String id) throws SQLException, ClassNotFoundException ;
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException ;
 
     String genarateID() throws SQLException, ClassNotFoundException ;
+
+    CustomerDTO searchCustomer(String id) throws SQLException, ClassNotFoundException;
 
 }

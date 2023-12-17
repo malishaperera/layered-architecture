@@ -147,11 +147,15 @@ public class ManageItemsFormController {
             if (!existItem(code)) {
                 new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
             }
-            itemDao.deleteItem(code);
 
-            tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
-            tblItems.getSelectionModel().clearSelection();
-            initUI();
+            boolean isDeleted = itemDao.deleteItem(code);
+
+            if (isDeleted){
+                tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
+                tblItems.getSelectionModel().clearSelection();
+                initUI();
+            }
+
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to delete the item " + code).show();
         } catch (ClassNotFoundException e) {
@@ -205,7 +209,6 @@ public class ManageItemsFormController {
                 }
                 /*Update Item*/
 
-                ItemDaoImpl itemDao =  new ItemDaoImpl();
                 boolean isUpdate = itemDao.updateItem(new ItemDTO(code, description, qtyOnHand, unitPrice));
 
                 if (isUpdate) {
