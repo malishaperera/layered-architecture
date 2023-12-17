@@ -214,15 +214,7 @@ public class ManageCustomersFormController {
 
     private String generateNewId() {
         try {
-            ResultSet resultSet= customerDao.genarateID();
-
-            if (resultSet.next()) {
-                String id = resultSet.getString("id");
-                int newCustomerId = Integer.parseInt(id.replace("C00-", "")) + 1;
-                return String.format("C00-%03d", newCustomerId);
-            } else {
-                return "C00-001";
-            }
+           return customerDao.genarateID();
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
@@ -243,5 +235,4 @@ public class ManageCustomersFormController {
         Collections.sort(tempCustomersList);
         return tempCustomersList.get(tempCustomersList.size() - 1).getId();
     }
-
 }

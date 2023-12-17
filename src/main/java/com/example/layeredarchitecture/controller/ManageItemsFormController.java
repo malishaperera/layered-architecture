@@ -79,7 +79,6 @@ public class ManageItemsFormController {
         try {
             /*Get all items*/
 
-
             ArrayList<ItemDTO> allItem =itemDao.getAllItem();
 
             for (ItemDTO itemDTO :allItem){
@@ -87,8 +86,8 @@ public class ManageItemsFormController {
                         new ItemTM(
                                 itemDTO.getCode(),
                                 itemDTO.getDescription(),
-                                itemDTO.getUnitPrice(),
-                                itemDTO.getQtyOnHand()
+                                itemDTO.getQtyOnHand(),
+                                itemDTO.getUnitPrice()
                         )
                 );
 
@@ -190,12 +189,8 @@ public class ManageItemsFormController {
                 }
                boolean isSave = itemDao.saveItem(new ItemDTO(code,description, unitPrice, qtyOnHand));
                if (isSave){
-                   tblItems.getItems().add(new ItemTM(code,description, unitPrice, qtyOnHand));
+                   tblItems.getItems().add(new ItemTM(code,description, qtyOnHand, unitPrice));
                }
-
-
-
-              //  tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
 
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -203,6 +198,7 @@ public class ManageItemsFormController {
                 e.printStackTrace();
             }
         } else {
+
             try {
 
                 if (!existItem(code)) {
@@ -210,9 +206,8 @@ public class ManageItemsFormController {
                 }
                 /*Update Item*/
 
-                ItemDTO dto  = new ItemDTO(code,description,unitPrice,qtyOnHand);
                 ItemDaoImpl itemDao =  new ItemDaoImpl();
-                itemDao.updateItem(dto);
+                itemDao.updateItem(new ItemDTO(code, description, unitPrice, qtyOnHand));
 
 
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
@@ -235,22 +230,13 @@ public class ManageItemsFormController {
     }
     private String generateNewId() {
         try {
-            ResultSet rst= itemDao.genarateID();
+            return itemDao.genarateID();
 
-            if (rst.next()) {
-                String id = rst.getString("code");
-                int newItemId = Integer.parseInt(id.replace("I00-", "")) + 1;
-                return String.format("I00-%03d", newItemId);
-            } else {
-                return "I00-001";
-            }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return "I00-001";
-
-
     }
 }
