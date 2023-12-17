@@ -17,10 +17,10 @@ public class ItemDaoImpl implements ItemDAO{
 
         while (rst.next()){
             ItemDTO itemDTO = new ItemDTO(
-                    rst.getString("code"),
-                    rst.getString("description"),
-                    rst.getBigDecimal("unitPrice"),
-                    rst.getInt("qtyOnHand"));
+                    rst.getString(1),
+                    rst.getString(2),
+                    rst.getInt(4),
+                    rst.getBigDecimal(4));
 
             itemList.add(itemDTO);
         }
@@ -40,7 +40,7 @@ public class ItemDaoImpl implements ItemDAO{
     }
 
     @Override
-    public void deleteCustomer(String code) throws SQLException, ClassNotFoundException {
+    public void deleteItem(String code) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("DELETE FROM Item WHERE code=?");
         pstm.setString(1, code);
@@ -60,7 +60,7 @@ public class ItemDaoImpl implements ItemDAO{
     }
 
     @Override
-    public boolean existCustomer(String code) throws SQLException, ClassNotFoundException {
+    public boolean existItems(String code) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("SELECT code FROM Item WHERE code=?");
         pstm.setString(1, code);
@@ -92,8 +92,8 @@ public class ItemDaoImpl implements ItemDAO{
             return new ItemDTO(
                     rst.getString(1),
                     rst.getString(2),
-                    rst.getBigDecimal(3),
-                    rst.getInt(4)
+                    rst.getInt(3),
+                    rst.getBigDecimal(4)
             );
         }
 

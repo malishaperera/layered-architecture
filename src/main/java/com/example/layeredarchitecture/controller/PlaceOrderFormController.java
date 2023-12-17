@@ -144,13 +144,7 @@ public class PlaceOrderFormController {
                     if (!existItem(newItemCode + "")) {
 //                        throw new NotFoundException("There is no such item associated with the id " + code);
                     }
-                   /* Connection connection = DBConnection.getDbConnection().getConnection();
-                    PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
-                    pstm.setString(1, newItemCode + "");
-                    ResultSet rst = pstm.executeQuery();
-                    rst.next();
-                    ItemDTO item = new ItemDTO(newItemCode + "", rst.getString("description"), rst.getBigDecimal("unitPrice"), rst.getInt("qtyOnHand"));
-*/
+
                     ItemDTO item = itemDAO.searchItem(newItemCode);
 
                     txtDescription.setText(item.getDescription());
@@ -159,6 +153,7 @@ public class PlaceOrderFormController {
 //                    txtQtyOnHand.setText(tblOrderDetails.getItems().stream().filter(detail-> detail.getCode().equals(item.getCode())).<Integer>map(detail-> item.getQtyOnHand() - detail.getQty()).findFirst().orElse(item.getQtyOnHand()) + "");
                     Optional<OrderDetailTM> optOrderDetail = tblOrderDetails.getItems().stream().filter(detail -> detail.getCode().equals(newItemCode)).findFirst();
                     txtQtyOnHand.setText((optOrderDetail.isPresent() ? item.getQtyOnHand() - optOrderDetail.get().getQty() : item.getQtyOnHand()) + "");
+
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -196,20 +191,16 @@ public class PlaceOrderFormController {
     }
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getDbConnection().getConnection();
-        PreparedStatement pstm = connection.prepareStatement("SELECT code FROM Item WHERE code=?");
-        pstm.setString(1, code);
-        return pstm.executeQuery().next();
+        return itemDAO.existItems(code);
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getDbConnection().getConnection();
-        PreparedStatement pstm = connection.prepareStatement("SELECT id FROM Customer WHERE id=?");
-        pstm.setString(1, id);
-        return pstm.executeQuery().next();
+        return customerDAO.existCustomer(id);
     }
 
     public String generateNewOrderId() {
+
+        //meka hadanna thiyenava
         try {
             Connection connection = DBConnection.getDbConnection().getConnection();
             Statement stm = connection.createStatement();
@@ -246,6 +237,7 @@ public class PlaceOrderFormController {
 
             for (ItemDTO itemDTO :allItem){
                 cmbItemCode.getItems().add(itemDTO.getCode());
+
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -360,19 +352,16 @@ public class PlaceOrderFormController {
                 return false;
             }
 
-
-
             for (OrderDetailDTO detail : orderDetails) {
                 if (!orderDetailDAO.saveOrderDetail(orderId, detail)) {
-
+                    connection.rollback();
+                    connection.setAutoCommit(true);
+                    return false;
                 }
-
 
                 //Search & Update Item
                 ItemDTO item = findItem(detail.getItemCode());
                 item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
-
-
 
                 if (!itemDAO.updateItem(item)) {
                     connection.rollback();
@@ -380,16 +369,16 @@ public class PlaceOrderFormController {
                     return false;
                 }
             }
+
             connection.commit();
             connection.setAutoCommit(true);
             return true;
+
         } catch (SQLException | ClassNotFoundException throwable) {
             throwable.printStackTrace();
         }
         return false;
     }
-
-
 
     public ItemDTO findItem(String code) {
         try {
@@ -400,6 +389,5 @@ public class PlaceOrderFormController {
             e.printStackTrace();
         }
         return null;
-
     }
 }

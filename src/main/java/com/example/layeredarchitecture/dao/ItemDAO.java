@@ -11,11 +11,11 @@ public interface ItemDAO {
 
     boolean saveItem(ItemDTO itemDTO) throws SQLException, ClassNotFoundException ;
 
-     void deleteCustomer(String code) throws SQLException, ClassNotFoundException ;
+     void deleteItem(String code) throws SQLException, ClassNotFoundException ;
 
     boolean updateItem(ItemDTO dto) throws SQLException, ClassNotFoundException ;
 
-    boolean existCustomer(String code) throws SQLException, ClassNotFoundException ;
+    boolean existItems(String code) throws SQLException, ClassNotFoundException ;
 
     String genarateID() throws SQLException, ClassNotFoundException;
 
