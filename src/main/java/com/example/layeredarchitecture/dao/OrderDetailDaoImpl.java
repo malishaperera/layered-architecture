@@ -8,7 +8,7 @@ import java.sql.*;
 public class OrderDetailDaoImpl implements OrderDetailDAO{
 
     public boolean saveOrderDetail(String orderId, OrderDetailDTO detail) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getDbConnection().getConnection();
+       /* Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("INSERT INTO orderdetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)");
 
         pstm.setString(1,orderId);
@@ -16,7 +16,10 @@ public class OrderDetailDaoImpl implements OrderDetailDAO{
         pstm.setBigDecimal(3,detail.getUnitPrice());
         pstm.setInt(4,detail.getQty());
 
-        return pstm.executeUpdate() >0;
+        return pstm.executeUpdate() >0;*/
+
+        return SqlUtil.execute("INSERT INTO orderdetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)",orderId,detail.getItemCode(),detail.getUnitPrice(),detail.getQty());
+
     }
 
 }

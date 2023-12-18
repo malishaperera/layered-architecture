@@ -76,3 +76,5 @@ CREATE TABLE `OrderDetails` (
 
 
 show databases ;
+
+select  * from item;
