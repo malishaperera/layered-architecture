@@ -38,4 +38,6 @@ public class QueryDAOImpl implements QueryDAO {
         }
         return customDTOSar;
     }
+
+
 }
