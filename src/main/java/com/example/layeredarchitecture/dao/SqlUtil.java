@@ -8,8 +8,6 @@ import java.sql.SQLException;
 
 public class SqlUtil {
 
-
-
     public static <T> T execute(String sql, Object...args) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement(sql);
@@ -25,8 +23,6 @@ public class SqlUtil {
             return(T)(Boolean)(pstm.executeUpdate()>0);
 
         }
-
-
 
 
        /* PreparedStatement pstm = connection.prepareStatement("UPDATE Customer SET name=?, address=? WHERE id=?");
