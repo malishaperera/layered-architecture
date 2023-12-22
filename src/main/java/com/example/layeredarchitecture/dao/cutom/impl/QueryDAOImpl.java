@@ -18,7 +18,12 @@ public class QueryDAOImpl implements QueryDAO {
 
         ResultSet rst = SqlUtil.execute("SELECT orders.oid,orders.date,orders.customerID,orderdetails.itemCode,orderdetails.qty,orderdetails.unitPrice from orders INNER JOIN orderdetails ON orders.oid = orderdetails.oid");
 
+        // SELECT o.oid,o.date,o.customerID,od.itemCode,od.qty,od.unitPrice from orders o INNER JOIN orderdetails od ON o.oid = od.oid;
+        // SELECT o.oid,o.date,o.customerID,od.itemCode,od.qty,od.unitPrice,cu.id,cu.name from orders o INNER JOIN orderdeta
+        //ils od ON o.oid = od.oid INNER JOIN Customer cu ON cu.id = o.customerID;
         ArrayList<CustomDTO> customDTOSar = new ArrayList<>();
+
+
 
         while (rst.next()){
             CustomDTO customDTO1 = new CustomDTO(
