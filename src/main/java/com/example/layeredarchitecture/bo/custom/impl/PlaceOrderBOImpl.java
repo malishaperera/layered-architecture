@@ -1,11 +1,11 @@
-package com.example.layeredarchitecture.bo;
+package com.example.layeredarchitecture.bo.custom.impl;
 
-import com.example.layeredarchitecture.dao.cutom.*;
-import com.example.layeredarchitecture.dao.cutom.impl.*;
+import com.example.layeredarchitecture.bo.custom.PlaceOrderBO;
+import com.example.layeredarchitecture.dao.DAOFactory;
+import com.example.layeredarchitecture.dao.custom.*;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
-import com.example.layeredarchitecture.model.OrderDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
 
 import java.sql.Connection;
@@ -17,15 +17,15 @@ import java.util.List;
 
 
 public class PlaceOrderBOImpl implements PlaceOrderBO {
-    CustomerDAO customerDAO = new CustomerDaoImpl();
+    CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
 
-    ItemDAO itemDAO = new ItemDaoImpl();
+    ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
 
-    OrdersDAO ordersDAO = new OrdersDaoImpl();
+    OrdersDAO ordersDAO = (OrdersDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER);
 
-    OrderDetailDAO orderDetailDAO = new OrderDetailDaoImpl();
+    OrderDetailDAO orderDetailDAO = (OrderDetailDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER_DETAIL);
 
-    QueryDAO queryDAO = new QueryDAOImpl();
+    QueryDAO queryDAO = (QueryDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.QUERY);
 
 
     @Override

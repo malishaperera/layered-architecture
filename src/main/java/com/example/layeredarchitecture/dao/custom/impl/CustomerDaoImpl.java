@@ -1,7 +1,7 @@
-package com.example.layeredarchitecture.dao.cutom.impl;
+package com.example.layeredarchitecture.dao.custom.impl;
 
 import com.example.layeredarchitecture.dao.SqlUtil;
-import com.example.layeredarchitecture.dao.cutom.CustomerDAO;
+import com.example.layeredarchitecture.dao.custom.CustomerDAO;
 import com.example.layeredarchitecture.model.CustomerDTO;
 
 import java.sql.*;
@@ -28,8 +28,6 @@ public class CustomerDaoImpl implements CustomerDAO {
             allCustomer.add(customerDTO);
         }
         return allCustomer;
-
-
     }
 
     @Override

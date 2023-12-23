@@ -1,6 +1,6 @@
 package com.example.layeredarchitecture.dao;
 
-import com.example.layeredarchitecture.dao.cutom.impl.*;
+import com.example.layeredarchitecture.dao.custom.impl.*;
 
 public class DAOFactory {
 

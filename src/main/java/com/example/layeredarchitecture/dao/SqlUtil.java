@@ -20,19 +20,8 @@ public class SqlUtil {
             return (T) pstm.executeQuery();
 
         }else {
-            return(T)(Boolean)(pstm.executeUpdate()>0);
+            return (T) (Boolean) (pstm.executeUpdate() > 0);
 
         }
-
-
-       /* PreparedStatement pstm = connection.prepareStatement("UPDATE Customer SET name=?, address=? WHERE id=?");
-        pstm.setString(1, dto.getName());
-        pstm.setString(2, dto.getAddress());
-        pstm.setString(3, dto.getId());
-
-        return pstm.executeUpdate() >0;*/
-
     }
-
-
 }

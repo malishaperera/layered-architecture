@@ -1,9 +1,8 @@
-package com.example.layeredarchitecture.dao.cutom.impl;
+package com.example.layeredarchitecture.dao.custom.impl;
 
 import com.example.layeredarchitecture.dao.SqlUtil;
-import com.example.layeredarchitecture.dao.cutom.QueryDAO;
+import com.example.layeredarchitecture.dao.custom.QueryDAO;
 import com.example.layeredarchitecture.model.CustomDTO;
-import com.example.layeredarchitecture.model.CustomerDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

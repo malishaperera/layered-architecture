@@ -1,7 +1,7 @@
-package com.example.layeredarchitecture.dao.cutom.impl;
+package com.example.layeredarchitecture.dao.custom.impl;
 
 import com.example.layeredarchitecture.dao.SqlUtil;
-import com.example.layeredarchitecture.dao.cutom.OrdersDAO;
+import com.example.layeredarchitecture.dao.custom.OrdersDAO;
 import com.example.layeredarchitecture.model.OrderDTO;
 
 import java.sql.*;
