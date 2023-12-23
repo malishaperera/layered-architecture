@@ -21,6 +21,9 @@ public class QueryDAOImpl implements QueryDAO {
         // SELECT o.oid,o.date,o.customerID,od.itemCode,od.qty,od.unitPrice from orders o INNER JOIN orderdetails od ON o.oid = od.oid;
         // SELECT o.oid,o.date,o.customerID,od.itemCode,od.qty,od.unitPrice,cu.id,cu.name from orders o INNER JOIN orderdeta
         //ils od ON o.oid = od.oid INNER JOIN Customer cu ON cu.id = o.customerID;
+
+        // SELECT o.oid,o.date,o.customerID,od.itemCode,od.qty,od.unitPrice, o.(count)from orders o INNER JOIN orderdetails od ON o.oid = od.oid;
+
         ArrayList<CustomDTO> customDTOSar = new ArrayList<>();
 
 
